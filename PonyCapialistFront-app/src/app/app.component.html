@@ -1,0 +1,181 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<br/>
+<div class="col-md-12 ">
+  <div class="col-md-6">
+      <img class="round" [attr.src]="server+world.logo" />
+      <span class="darwin" id="worldname">  Welcome to the World of {{world.name}} </span>
+  </div>
+  <div class="col-md-2 money_world">
+    <span [innerHTML]="world.money | bigvalue" > </span> 
+   <!-- <img src="https://www.faire-livrer-des-fleurs.com/130-large_default/couronne-de-fleurs-deuil-roses-memoire.jpg" style="border-radius :50%;
+    padding:5px; height:70px;"/> -->
+    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+  </div>
+  <div class="col-md-4 ">
+    <button type="button" class="btn btn-dark float-right" (click)="choseQtt()">{{qtmulti}}</button>
+    <input type="text" [(ngModel)]="username" (change)="onUsernameChanged()"/>
+    <label>Votre identifiant</label> <!--: <input [()]="tag" placeholder="nom utilisateur" (change)=""/>-->
+  </div>
+</div> 
+<br/><br/><br/>
+
+<!--Bouttons à gauche-->
+<div>
+  <div class="col-md-2 col-sm-2">
+    <br/><br/>
+    <div class="btn btn-dark float-right" data-toggle="modal" (click)="unlocksModal.show()">  Unlocks </div>
+    <br/><br/>
+    <div class="btn btn-dark float-right" data-toggle="modal" (click)="cashUpgradesModal.show()"> <span *ngIf="cashAv" class="badge">New</span> Cash Upgrades </div>
+    <br/><br/>
+    <div class="btn btn-dark float-right" data-toggle="modal" (click)="angelUpgradesModal.show()"> <span *ngIf="angAv" class="badge">New</span> Angel Upgrades </div>
+    <br/><br/>
+    <div class="btn btn-dark float-right" data-toggle="modal" (click)="managersModal.show()" > <span *ngIf="manAv" class="badge">New</span> Managers </div>
+    <br/><br/>
+    <div class="btn btn-dark float-right" data-toggle="modal" > <span *ngIf="" class="badge">New</span> Investors </div>
+  </div>
+  <!--Fin des bouttons -->
+  <!--Liste des produits -->
+  <div class="col-md-10 ">
+    <div class="col-md-6 col-sm-6">
+      <app-product [qtmulti]="qtmulti" [prod]="world.products.product[0]" [money]="world.money" (notifyProduction)="onProductionDone($event)" (onBuy)="onBuyDone($event)" class="product col-md-12 "></app-product>
+      <app-product [qtmulti]="qtmulti" [prod]="world.products.product[1]" [money]="world.money" (notifyProduction)="onProductionDone($event)" (onBuy)="onBuyDone($event)" class="product col-md-12"></app-product>
+      <app-product [qtmulti]="qtmulti" [prod]="world.products.product[2]" [money]="world.money" (notifyProduction)="onProductionDone($event)" (onBuy)="onBuyDone($event)" class="product col-md-12"></app-product>
+    </div>
+    <div class="col-md-6 col-sm-6">
+      <app-product [qtmulti]="qtmulti" [prod]="world.products.product[3]" [money]="world.money" (notifyProduction)="onProductionDone($event)" (onBuy)="onBuyDone($event)" class="product col-md-12"></app-product>
+      <app-product [qtmulti]="qtmulti" [prod]="world.products.product[4]" [money]="world.money" (notifyProduction)="onProductionDone($event)" (onBuy)="onBuyDone($event)" class="product col-md-12"></app-product>
+      <app-product [qtmulti]="qtmulti" [prod]="world.products.product[5]" [money]="world.money" (notifyProduction)="onProductionDone($event)" (onBuy)="onBuyDone($event)" class="product col-md-12"></app-product>
+    </div>
+  </div>
+</div>
+<!--Fin liste des produits -->
+
+<!--Modal des Cash Upgrades-->
+<app-modal #cashUpgradesModal> 
+  <div class="app-modal-header"> 
+    <h3 class="modal-title"> What other death bonuses could you use??  </h3> 
+  </div> 
+  <div class="app-modal-body"> 
+    <div class="upgrade" *ngFor="let upgrade of world.upgrades.pallier" >
+      <div class="row" >
+        <div class="col-md-12">
+          <div class="col-sm-6 col-md-4">
+            <img class="round" [attr.src]="server+upgrade.logo" />
+          </div>
+          <div class="caption">
+            <h4>{{upgrade.name}}</h4>
+            <p>
+              <span>{{upgrade.seuil}}</span><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </p>
+            <p></p><button type="button" class="btn btn-default"  (click)="buyUpgrade(upgrade)" [disabled]="true">Buy</button>
+          </div> 
+        </div>
+      </div>
+    </div> 
+  </div> 
+  <div class="app-modal-footer"> 
+    <button type="button" class="btn btn-default" (click)="cashUpgradesModal.hide()">Close</button> 
+  </div>    
+</app-modal>
+<!--Modal des Cash Upgrades-->
+
+<!--Modal des Unlocks-->
+<app-modal #unlocksModal> 
+  <div class="app-modal-header"> 
+    <h3 class="modal-title"> What other death bonuses could you use??  </h3> 
+  </div> 
+  <div class="app-modal-body"> 
+    <div class="unlock" *ngFor="let unlock of world.allunlocks.pallier" >
+      <div class="row" >
+        <div class="col-md-12">
+          <div class="col-sm-6 col-md-4">
+            <img class="round" [attr.src]="server+unlock.logo" />
+          </div>
+          <div class="caption">
+            <h4>{{unlock.name}}</h4>
+            <p>
+              <span>{{unlock.seuil}}</span><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </p>
+            <!--<p></p><button type="button" class="btn btn-default"  >Buy</button> -->
+          </div> 
+        </div>
+      </div>
+    </div> 
+  </div> 
+  <div class="app-modal-footer"> 
+    <button type="button" class="btn btn-default" (click)="cashUpgradesModal.hide()">Close</button> 
+  </div>    
+</app-modal>
+<!--Modal des Cash unlocks-->
+
+<!--Modal des Angels-->
+<app-modal #angelUpgradesModal> 
+  <div class="app-modal-header"> 
+    <h3 class="modal-title"> Wow Much Shinigami!!!  </h3> 
+  </div> 
+  <div class="app-modal-body"> 
+    <div class="angel" *ngFor="let angel of world.angelupgrades.pallier" >
+      <div class="row" >
+        <div class="col-md-12">
+          <div class="col-sm-6 col-md-4">
+            <img class="round" [attr.src]="server+angel.logo" />
+          </div>
+          <div class="caption">
+            <h4>{{angel.name}}</h4>
+            <p>
+              <span>{{angel.seuil}}</span><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </p>
+            <p></p><button type="button"  class="btn btn-default" [disabled]="true" > Buy </button>
+          </div> 
+        </div>
+      </div>
+    </div> 
+  </div> 
+  <div class="app-modal-footer"> 
+    <button type="button" class="btn btn-default" (click)="cashUpgradesModal.hide()">Close</button> 
+  </div>    
+</app-modal>
+<!--Modal des Angels-->
+
+<!--Modal des managers -->
+<app-modal #managersModal> 
+  <div class="app-modal-header"> 
+    <h3 class="modal-title">Managers help you to succeed your death ! </h3> 
+  </div> 
+  <div class="app-modal-body"> 
+    <div class="manager" *ngFor="let manager of world.managers.pallier" >
+      <div class="row" *ngIf="!manager.unlocked">
+        <div class="col-md-12">
+          <div class="col-sm-6 col-md-4">
+            <img class="round" [attr.src]="server+manager.logo" />
+          </div>
+          <div class="caption">
+            <h4>{{manager.name}}</h4>
+            <p>
+              <span>{{manager.seuil}}</span><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </p>
+            <p></p><button type="button" class="btn btn-default"  (click)="hireManager(manager)" [disabled]="!managerBuyable">Hire</button>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div> 
+  <div class="app-modal-footer"> 
+    <button type="button" class="btn btn-default" (click)="managersModal.hide()">Close</button> 
+  </div>    
+</app-modal>
+<!--Modal des managers -->
+
+
+<!-- Message éphémère-->
+<toaster-container ></toaster-container>
+
+
+<img src="https://www.tenstickers.fr/stickers/img/preview/sticker-cimetiere-halloween-4682.png" style="width: 25%;
+height: 250px; float:right; background-size:100%" />
+<img src="http://religioner.no/wp-content/uploads/2016/11/religioner.no_dod-og-begravet-gratis.png" style="width: 25%;
+height: 250px; float:center; background-size:100%" />
+
+
+

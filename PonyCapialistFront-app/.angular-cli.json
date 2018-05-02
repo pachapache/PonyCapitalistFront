@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "pony-capitalist-front"
+    "name": "isis-capitalist-app"
   },
   "apps": [
     {
@@ -19,9 +19,9 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+       "styles.css", "../node_modules/angular2-toaster/toaster.css" 
       ],
-      "scripts": [],
+      "scripts": ["../node_modules/progressbar.js/dist/progressbar.js"],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

@@ -1,0 +1,57 @@
+/* You can add global styles to this file, and also import other style files */
+.round {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+
+.darwin{
+    color:rgba(29, 16, 16, 0.993) ;
+    font-size: 200%;
+    font-weight: bold;
+}
+
+.lesdeux { 
+    position: relative; 
+} 
+
+.lepremier {
+    position: absolute;
+}
+
+.texte_revenu { 
+    color:black;
+    position: absolute;
+    float: right;
+
+     
+} 
+
+
+
+.manager{
+    border: 1px outset rgb(20, 20, 20)  !important;
+
+}
+
+
+.lesecond { 
+    position: absolute; 
+    /* on met cet élément à 10 pixels du bas de son conteneur 
+    // du coup il se superpose à l’autre qui est dans le flux normal */
+    bottom: -10px;
+}
+
+body{
+    background-color: rgba(133, 140, 145, 0.582);
+}
+
+.money_world{
+    font-size: 200%;
+    font-weight: bold;
+}
+
+.app-modal-body{
+    height: 500px;
+    overflow-y: auto;
+}
